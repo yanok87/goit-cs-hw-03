@@ -10,31 +10,31 @@ db = client.book
 
 # print(db)
 
-# result_one = db.cats.insert_one(
-#     {
-#         "name": "barsik",
-#         "age": 3,
-#         "features": ["ходить в капці", "дає себе гладити", "рудий"],
-#     }
-# )
+result_one = db.cats.insert_one(
+    {
+        "name": "barsik",
+        "age": 3,
+        "features": ["ходить в капці", "дає себе гладити", "рудий"],
+    }
+)
 
-# print(result_one.inserted_id)
+print(result_one.inserted_id)
 
-# result_many = db.cats.insert_many(
-#     [
-#         {
-#             "name": "Lama",
-#             "age": 2,
-#             "features": ["ходить в лоток", "не дає себе гладити", "сірий"],
-#         },
-#         {
-#             "name": "Liza",
-#             "age": 4,
-#             "features": ["ходить в лоток", "дає себе гладити", "білий"],
-#         },
-#     ]
-# )
-# print(result_many.inserted_ids)
+result_many = db.cats.insert_many(
+    [
+        {
+            "name": "Lama",
+            "age": 2,
+            "features": ["ходить в лоток", "не дає себе гладити", "сірий"],
+        },
+        {
+            "name": "Liza",
+            "age": 4,
+            "features": ["ходить в лоток", "дає себе гладити", "білий"],
+        },
+    ]
+)
+print(result_many)
 
 # # READ
 
@@ -51,7 +51,7 @@ def show_all_cats():
 
 def show_cat(name):
     """Show a cat by name"""
-    result = db.cats.findOne({"name": name})
+    result = db.cats.find_one({"name": name})
     print(result)
 
 
@@ -67,17 +67,17 @@ def update_cat_age(name, age):
     print(result)
 
 
-# update_cat_age("Lisa", 5)
+# update_cat_age("Liza", 5)
 
 
 def add_feature(name, feature):
     """Add new feature to existing features by cat's name"""
-    db.cats.updateOne({"name": name}, {"$addToSet": {"features": feature}})
+    db.cats.update_one({"name": name}, {"$addToSet": {"features": feature}})
     result = db.cats.find_one({"name": name})
     print(result)
 
 
-# add_feature("Lisa", "Loves fish")
+# add_feature("Liza", "Loves fish")
 
 # Delete
 
@@ -89,12 +89,12 @@ def delete_cat(name):
     print(result)
 
 
-# delete_cat("Lisa")
+# delete_cat("Liza")
 
 
 def delete_all_cats():
     """Deletes all cats from the cats collection"""
-    result = db.cats.remove({})
+    result = db.cats.delete_many({})
     print(result)
 
 
